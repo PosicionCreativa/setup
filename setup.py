@@ -5,9 +5,23 @@ import os
 import json
 import urllib
 
+# Definición de colores
+class color:
+    purple  = '\033[95m'
+    blue    = '\033[94m'
+    green   = '\033[92m'
+    yellow  = '\033[93m'
+    red     = '\033[91m'
+    end     = '\033[0m'
+    # Efectos en el texto (bold y underline)
+    bold    = '\033[1m'
+    under   = '\033[4m'
+
+print(color.yellow)
 print("***********************************************")
 print(" ****** Bienvenido al instalador de MAC ****** ")
 print("***********************************************")
+print(color.end)
 
 name    = ''
 email   = ''
@@ -23,58 +37,80 @@ options = {
     'autoupdate':   ''
 }
 
-# Información Básica
+# Definición de preguntas
+questions = {
+    'name': color.green + "Cual es tu nombre?" + color.end + "\n> ",
+    'email': {
+        'default': color.green + "Cual es tu email? " + color.end + "\n> ",
+        'invalid': color.red + "(escribe un email valido) " + color.end + "\n> "
+    },
+    'developer': {
+        'default': color.green + "Quieres instalar los Developer Tools? (%s) " + color.end,
+        'android': color.green + "Quieres instalar Android Tools? (%s) " + color.end,
+        'ios'    : color.green + "Quieres instalar los IOS Tools? (%s) " + color.end,
+    },
+    'designer': color.green + "Quieres instalar las herramientas para diseño? (%s) " + color.end,
+    'sublime' : color.green + "Quieres instalar Sublime Text 3 con algunos plugins? (%s) " + color.end,
+    'zsh': color.green + "Quieres insalar Oh My Zsh? (%s) " + color.end,
+    'animations': color.green + "Quieres acelerar las animaciones en OSX? (%s) " + color.end,
+    'show_files': color.green + "Quieres que se muestren los archivos ocultos? (%s) " + color.end,
+    'autoupdate': color.green + "Necesitas que el Sistema se actualice (%s) " + color.green
+}
+
+# Solicitud de Información Básica
 # - Nombre
 # - Correo electronico
 while name == '':
-    name = input("Cual es tu nombre?\n> ").strip()
+    name = raw_input(questions['name']).strip()
 
 count = 0
 while email == '' or '@' not in email:
     if count == 0:
-        email = input("Cual es tu email?\n").strip()
+        email = raw_input(questions['email']['default']).strip()
     elif count > 0:
-        email = input("Cual es tu email? (escribe un email valido)\n").strip()
+        email = raw_input(questions['email']['invalid']).strip()
     count = count + 1
 
 # Opciones de instalación
 while options['developer'] not in ['y', 'n']:
-  options['developer'] = input("Quieres instalar los Developer Tools? (%s)  " % '|'.join(['y','n']))
+  options['developer'] = raw_input(questions['developer']['default'] % '|'.join(['y','n']))
 
 # Herramientas para developers
 if options['developer'] == 'y':
     # Developer tools para Android
     while options['android'] not in ['y', 'n']:
-        options['android'] = input("Quieres instalar Android Tools? (%s)  " % '|'.join(['y','n']))
+        options['android'] = raw_input(questions['developer']['android'] % '|'.join(['y','n']))
     # Developer tools para Ios
     while options['ios'] not in ['y', 'n']:
-        options['ios'] = input("Quieres instalar los IOS Tools? (%s)  " % '|'.join(['y','n']))
+        options['ios'] = raw_input(questions['developer']['ios'] % '|'.join(['y','n']))
 
 # Herramientas para diseñador
 while options['designer'] not in ['y', 'n']:
-    options['designer'] = input("Quieres instalar las herramientas para diseño? (%s)  " % '|'.join(['y','n']))
+    options['designer'] = raw_input(questions['designer'] % '|'.join(['y','n']))
 
 # Sublime Text 3
 while options['sublime'] not in ['y', 'n']:
-    options['sublime'] = input("Quieres instalar Sublime Text 3 con algunos plugins? (%s)  " % '|'.join(['y','n']))
+    options['sublime'] = raw_input(questions['sublime'] % '|'.join(['y','n']))
 
 # Oh My ZSH
 while options['zsh'] not in ['y', 'n']:
-    options['zsh'] = input("Quieres insalar Oh My Zsh? (%s)  " % '|'.join(['y','n']))
+    options['zsh'] = raw_input(questions['zsh'] % '|'.join(['y','n']))
 
 # Animaciones de OSX
 while options['animations'] not in ['y', 'n']:
-    options['animations'] = input("Quieres acelerar las animaciones en OSX? (%s)  " % '|'.join(['y','n']))
+    options['animations'] = raw_input(questions['animations'] % '|'.join(['y','n']))
 
 # Mostrar los archivos ocultos en el finder
 while options['show_files'] not in ['y', 'n']:
-    options['show_files'] = input("Quieres que se muestren los archivos ocultos? (%s)  " % '|'.join(['y','n']))
+    options['show_files'] = raw_input(questions['show_files'] % '|'.join(['y','n']))
 
 # Auto-Update (opción recomendada)
 while options['autoupdate'] not in ['y', 'n']:
-    options['autoupdate'] = input("Necesitas que el Sistema Operativo se actualice automáticamente? (Recomendado) (%s)  " % '|'.join(['y','n']))
+    options['autoupdate'] = raw_input(questions['autoupdate'] % '|'.join(['y','n']))
+
 
 print("\n\n")
+print(color.yellow)
 print("***********************************************************")
 print("Hola, %s!" % name)
 print("***********************************************************")
@@ -82,6 +118,7 @@ print("En este proceso te preguntaremos la contraseña varias veces")
 print("***********************************************************")
 print("Iniciaremos el proceso de instalación :)...")
 print("***********************************************************")
+print(color.end)
 
 # Crearemos un public key
 if not os.path.isfile(os.path.expanduser("~") + '/.ssh/id_rsa.pub'):
