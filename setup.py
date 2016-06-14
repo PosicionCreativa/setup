@@ -83,9 +83,9 @@ print("***********************************************************")
 print("Iniciaremos el proceso de instalación :)...")
 print("***********************************************************")
 
-# Crearemos un private key
+# Crearemos un public key
 if not os.path.isfile(os.path.expanduser("~") + '/.ssh/id_rsa.pub'):
-    print("Estamos creando una llave privada con el correo proporcionado")
+    print("Estamos creando una llave publica con el correo proporcionado")
     print("*************************************************************")
     os.system('ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa -N "" -C "%s"' % email)
 
