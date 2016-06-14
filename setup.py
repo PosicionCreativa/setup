@@ -133,3 +133,9 @@ print("***************************************")
 print("Instalando curl, wget, sqlite y openssl")
 print("***************************************")
 os.system('brew install graphicsmagick curl wget sqlite libpng libxml2 openssl')
+
+# Instalando los Command Line Tools
+print("*********************************")
+print("Instalando los Command Line Tools")
+print("*********************************")
+os.system('npm install -g yo bower gulp grunt grunt-cli node-gyp nvm')
