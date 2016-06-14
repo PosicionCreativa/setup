@@ -129,7 +129,7 @@ os.system('brew link --overwrite git node python python3 ruby')
 os.system('brew install git-flow')
 
 # Instalamos algunas herramientas cli utiles
-print("****************************************************")
-print("Instalando curl, wget, sqlite y openssl Useful Stuff")
-print("****************************************************")
+print("***************************************")
+print("Instalando curl, wget, sqlite y openssl")
+print("***************************************")
 os.system('brew install graphicsmagick curl wget sqlite libpng libxml2 openssl')
