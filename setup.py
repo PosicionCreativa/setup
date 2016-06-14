@@ -85,6 +85,7 @@ print("***********************************************************")
 
 # Crearemos un public key
 if not os.path.isfile(os.path.expanduser("~") + '/.ssh/id_rsa.pub'):
+    print("*************************************************************")
     print("Estamos creando una llave publica con el correo proporcionado")
     print("*************************************************************")
     os.system('ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa -N "" -C "%s"' % email)
@@ -98,14 +99,17 @@ os.system('sudo defaults write /Library/Preferences/SystemConfiguration/com.appl
 
 # Verificamos que xcode cli este instalado, sino lo instalamos :)
 if os.system('xcode-select -p') != 0:
+    print("**********************")
     print("Instalando Xcode Tools")
+    print("**********************")
     os.system('xcode-select --install')
     print("******************************")
     print("Reinicia tu MAC para continuar")
     print("******************************")
     exit()
 
-# Install Brew & Brew Cask
+# Instalando Homebrew y Homebrew Cask
+print("***********************************")
 print("Instalando Homebrew & Homebrew Cask")
 print("***********************************")
 os.system('/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"')
@@ -115,3 +119,17 @@ os.system('brew tap caskroom/versions')
 os.system('brew tap caskroom/fonts')
 os.system('brew tap homebrew/versions')
 os.system('brew update && brew upgrade && brew cleanup && brew cask cleanup')
+
+# Instalamos Git, GitFlow, Nodejs, Python y Ruby (RoR soon)
+print("**********************************************")
+print("Instalando Git, GitFlow, Nodejs, Python y Ruby")
+print("**********************************************")
+os.system('brew install git node python python3 ruby')
+os.system('brew link --overwrite git node python python3 ruby')
+os.system('brew install git-flow')
+
+# Instalamos algunas herramientas cli utiles
+print("****************************************************")
+print("Instalando curl, wget, sqlite y openssl Useful Stuff")
+print("****************************************************")
+os.system('brew install graphicsmagick curl wget sqlite libpng libxml2 openssl')
