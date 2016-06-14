@@ -96,7 +96,7 @@ os.system('sudo scutil --set LocalHostName "%s"' % name)
 os.system('sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "%s"' % name)
 
 
-# Check if Xcode Command Line Tools are installed
+# Verificamos que xcode cli este instalado, sino lo instalamos :)
 if os.system('xcode-select -p') != 0:
     print("Instalando Xcode Tools")
     os.system('xcode-select --install')
@@ -104,3 +104,14 @@ if os.system('xcode-select -p') != 0:
     print("Reinicia tu MAC para continuar")
     print("******************************")
     exit()
+
+# Install Brew & Brew Cask
+print("Instalando Homebrew & Homebrew Cask")
+print("***********************************")
+os.system('/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"')
+os.system('brew tap caskroom/cask')
+os.system('brew tap homebrew/services')
+os.system('brew tap caskroom/versions')
+os.system('brew tap caskroom/fonts')
+os.system('brew tap homebrew/versions')
+os.system('brew update && brew upgrade && brew cleanup && brew cask cleanup')
